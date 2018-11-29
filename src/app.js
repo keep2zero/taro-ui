@@ -7,6 +7,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/view/tooltips/index',
       'pages/panel/index',
       'pages/basic/icon/index',
       'pages/basic/button/index',
@@ -58,6 +59,7 @@ class App extends Component {
       'pages/form/image-picker/index',
       'pages/form/range/index',
       'pages/advanced/calendar/index'
+
     ],
     window: {
       backgroundTextStyle: 'light',

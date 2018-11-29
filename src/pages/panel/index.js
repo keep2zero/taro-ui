@@ -117,6 +117,11 @@ export default class PanelBasic extends Component {
           {
             id: 'Steps',
             name: '步骤条'
+          },
+
+          {
+            id: 'Tooltips',
+            name: '提示'
           }
         ],
         action: [
