@@ -57,13 +57,21 @@ export default class ButtonPage extends Taro.Component {
             <View className='panel__title'>主操作</View>
             <View className='panel__content'>
               <View className='btn-item'>
-                <AtButton type='primary' onClick={this.onButtonClick.bind(this)}>主操作按钮</AtButton>
+                <AtButton type='primary' icon={{ value: 'heart', size: 30 }} onClick={this.onButtonClick.bind(this)}>主操作按钮</AtButton>
               </View>
               <View className='btn-item'>
                 <AtButton type='primary' loading onClick={this.onButtonClick.bind(this)}>Loading</AtButton>
               </View>
               <View className='btn-item'>
                 <AtButton type='primary' disabled>不可操作</AtButton>
+              </View>
+
+              <View className='btn-item'>
+                <AtButton type='danger' circleIcon icon={{ value: 'clock', size: 20 }}>危险</AtButton>
+              </View>
+
+              <View className='btn-item'>
+                <AtButton type='success' size='small'>success</AtButton>
               </View>
             </View>
           </View>
