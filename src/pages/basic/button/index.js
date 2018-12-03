@@ -71,7 +71,7 @@ export default class ButtonPage extends Taro.Component {
               </View>
 
               <View className='btn-item'>
-                <AtButton type='success' size='small'>success</AtButton>
+                <AtButton type='success' size='small' icon={{ value: 'link', size: 30 }}>success</AtButton>
               </View>
             </View>
           </View>
