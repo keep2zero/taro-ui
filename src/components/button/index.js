@@ -4,6 +4,7 @@ import { View, Button, Form } from '@tarojs/components'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import AtLoading from '../loading/index'
+import AtIcon from '../icon'
 
 import AtComponent from '../../common/component'
 import './index.scss'
@@ -16,6 +17,8 @@ const SIZE_CLASS = {
 const TYPE_CLASS = {
   primary: 'primary',
   secondary: 'secondary',
+  danger: 'danger',
+  success: 'success'
 }
 
 export default class AtButton extends AtComponent {
@@ -85,6 +88,8 @@ export default class AtButton extends AtComponent {
       sendMessageImg,
       showMessageCard,
       appParameter,
+      circleIcon,
+      icon
     } = this.props
     const {
       isWEAPP,
@@ -96,6 +101,7 @@ export default class AtButton extends AtComponent {
       [`at-button--${type}`]: TYPE_CLASS[type],
       'at-button--circle': circle,
       'at-button--full': full,
+      'at-button--circle-icon': circleIcon
     }
     const loadingColor = type === 'primary' ? '#fff' : '#6190E8'
     const loadingSize = size === 'small' ? '16' : '18'
@@ -104,12 +110,21 @@ export default class AtButton extends AtComponent {
       component = <View className='at-button__icon'><AtLoading color={loadingColor} size={loadingSize} /></View>
       rootClassName.push('at-button--icon')
     }
+
+    let iconComponet
+    if (icon) {
+      iconComponet = <View className='at-button__icon'><AtIcon value={icon.value} size={icon.size} color={icon.color}></AtIcon></View>
+      rootClassName.push('at-button--icon')
+    }
+
+
     return (
       <View
         className={classNames(rootClassName, classObject, this.props.className)}
         style={customStyle}
         onClick={this.onClick.bind(this)}
       >
+
         {isWEAPP && !disabled && <Form reportSubmit onSubmit={this.onSumit.bind(this)} onReset={this.onReset.bind(this)}><Button className='at-button__wxbutton'
           formType={formType}
           openType={openType}
@@ -126,8 +141,9 @@ export default class AtButton extends AtComponent {
           onError={this.onError.bind(this)}
           onContact={this.onContact.bind(this)}
         >
+
         </Button></Form>}
-        {component}<View className='at-button__text'>{this.props.children}</View>
+        {iconComponet}{component}{!circleIcon && <View className='at-button__text'>{this.props.children}</View>}
       </View>
     )
   }
@@ -137,6 +153,7 @@ AtButton.defaultProps = {
   size: 'normal',
   type: '',
   circle: false,
+  circleIcon: false,
   full: false,
   loading: false,
   disabled: false,
@@ -161,8 +178,10 @@ AtButton.defaultProps = {
 
 AtButton.propTypes = {
   size: PropTypes.oneOf(['normal', 'small']),
-  type: PropTypes.oneOf(['primary', 'secondary', '']),
+  type: PropTypes.oneOf(['primary', 'secondary', '', 'danger', 'success']),
   circle: PropTypes.bool,
+  circleIcon: PropTypes.bool,
+  icon: PropTypes.object,
   full: PropTypes.bool,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
