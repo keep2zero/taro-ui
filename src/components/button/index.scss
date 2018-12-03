@@ -92,7 +92,7 @@ $at-button-height-sm: 60px;
     }
 
     .at-icon {
-      line-height: 1;
+      line-height: 100;
       margin-top: 0;
     }
   }
@@ -110,6 +110,18 @@ $at-button-height-sm: 60px;
     height: $at-button-height-sm;
     font-size: $font-size-base;
     line-height: $at-button-height-sm - 2;
+
+    &.at-button--circle-icon {
+      min-width: unset;
+      max-width: unset;
+      max-height: unset;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      font-size: unset;
+      line-height: 1;
+      padding: 0;
+    }
   }
 
   &__wxbutton {
