@@ -95,6 +95,43 @@ export default class CardPage extends Taro.Component {
               </View>
             </View>
           </View>
+
+
+          {}
+          <View className='panel'>
+            <View className='panel__title'>自定义标题(title和renderTitle二者选一)</View>
+            <View className='panel__content no-padding'>
+              <View className='example-item'>
+                <AtAccordion renderTitle={
+                  <View className='' style={{ position: 'relative' }}>
+                    <View>title</View>
+                    <View style={{ position: 'absolute', right: 0, bottom: '0' }}>空置中...</View>
+                  </View>
+                } icon={{ value: 'tags', color: '#77a1fd' }}
+                >
+                  <AtList hasBorder={false}>
+                    <AtListItem
+                      title='标题文字'
+                      thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+                    />
+                    <AtListItem
+                      title='标题文字'
+                      note='描述信息'
+                      thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'
+                    />
+                    <AtListItem
+                      title='标题文字'
+                      note='描述信息'
+                      thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+                    />
+                  </AtList>
+                </AtAccordion>
+              </View>
+            </View>
+          </View>
+          {}
+
+
         </View>
       </View>
     )

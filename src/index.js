@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 import './components/article/index.scss'
 import './components/flex/index.scss'
 import './components/flex/item/index.scss'
+import './components/icon-fa/index.scss'
 
 Taro.initPxTransform({ designWidth: 750 })
 
@@ -58,6 +59,8 @@ export { default as AtRange } from './components/range'
 export { default as AtIndexes } from './components/indexes'
 export { default as AtCalendar } from './components/calendar'
 export { default as AtToolTips } from './components/tooltips'
+export { default as AtFaIcon } from './components/icon-fa'
+export { AtLine, AtImage, AtLineInput } from './components/items'
 
 /* 私有的组件  */
 export { default as AtLoading } from './components/loading'

@@ -10,13 +10,14 @@ import './index.scss'
  * 在h5中获取到的trigger项的高度是有问题的.
  */
 export default class AtToolTips extends AtComponent {
+  static zIndex = 90
   static defaultProps = {
     direct: 'b',
     offset: {
       offsetX: 0,
       offsetY: 0,
       arrowsOffsetX: 12,
-      arrowsOffsetY: -1
+      arrowsOffsetY: 0
     },
     trigger: 'click',
     renderTips: null
@@ -44,11 +45,15 @@ export default class AtToolTips extends AtComponent {
   state = {
     popArrowStyle: {},
     popStyle: {},
-    show: false
+    show: false,
+    width: ''
   }
 
 
   updatePop () {
+    console.log(AtToolTips.zIndex)
+    const width = Taro.getSystemInfoSync().windowWidth
+    console.log(width)
     if (this.state.show) {
       const query = Taro.createSelectorQuery().in(this.$scope)
       query.select('.at-tooltips__children').boundingClientRect()
@@ -59,12 +64,22 @@ export default class AtToolTips extends AtComponent {
         console.log(res)
         const place = new this.placement[this.props.direct](res, this.props.offset)
         place.exec()
+        console.log(place)
+
+        // let width = Taro.getSystemInfoSync().windowWidth
+        // if (place.popRect.width <= width) {
+        //   width = place.rect.width
+        // }
 
         const popStyle = {
-          width: `${place.width}px`,
-          height: `${place.height}px`,
+          // width: `${place.rect.width}px`,
+          // height: `${place.height}px`,
+
+          // overflow: 'hidden',
+          zIndex: ++AtToolTips.zIndex,
           top: `${place.top}px`,
-          left: `${place.left}px`
+          left: `${place.left}px`,
+          // width: `${width - place.rect.left}px`
         }
 
 
@@ -77,8 +92,15 @@ export default class AtToolTips extends AtComponent {
 
         this.setState({
           popStyle,
-          popArrowStyle
+          popArrowStyle,
+          width: place.width
         })
+      })
+    } else {
+      this.setState({
+        popStyle: {
+          zIndex: 0
+        }
       })
     }
   }
@@ -104,6 +126,11 @@ export default class AtToolTips extends AtComponent {
   }
 
   close () {
+    this.setState({
+      popStyle: {
+        zIndex: 0
+      }
+    })
     this.setState({ show: false })
   }
 
@@ -116,18 +143,16 @@ export default class AtToolTips extends AtComponent {
             <View className='at-tooltips__overlay' onClick={this.close.bind(this)}></View>
           )
         }
-        <View className='at-tooltips__body'>
+        <View className='at-tooltips__body' style={{ zIndex: this.state.popStyle.zIndex }}>
 
-          {
-            (this.state.show) && (
-              <View className='at-tooltips__pop-wrapper ' style={this.state.popStyle}>
-                <View className='at-tooltips__pop-arrow' style={this.state.popArrowStyle}></View>
-                <View className='at-tooltips__pop'>
-                  {this.props.renderTips}
-                </View>
-              </View>
-            )
-          }
+
+          <View className='at-tooltips__pop-wrapper ' style={{ ...this.state.popStyle, visibility: (this.state.show ? 'visible' : 'hidden') }}>
+            <View className='at-tooltips__pop-arrow' style={this.state.popArrowStyle}></View>
+            <View className='at-tooltips__pop' style={{ width: `${this.state.width}px` }}>
+              {this.props.renderTips}
+            </View>
+          </View>
+
 
           <View className='at-tooltips__children'
             // style={{ height: `${this.props.triggerHeight}px` }}

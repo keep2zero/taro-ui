@@ -1,6 +1,9 @@
 /**
  * Mixins
  */
+View, Text {
+  box-sizing: border-box;
+}
 
 /* library */
 @import './libs/absolute-center';

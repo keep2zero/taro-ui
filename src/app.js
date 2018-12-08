@@ -2,12 +2,16 @@ import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index/index'
 
 import './app.scss'
+import './components/icon-fa/index.scss'
 
 class App extends Component {
   config = {
     pages: [
+      'pages/basic/items/index',
       'pages/index/index',
       'pages/view/tooltips/index',
+      'pages/layout/accordion/index',
+      'pages/basic/faicon/index',
       'pages/panel/index',
       'pages/basic/icon/index',
       'pages/basic/button/index',
@@ -44,7 +48,7 @@ class App extends Component {
       'pages/layout/float-layout/index',
       'pages/layout/card/index',
       'pages/layout/list/index',
-      'pages/layout/accordion/index',
+
       'pages/form/checkbox/index',
       'pages/form/input/index',
       'pages/form/input-number/index',

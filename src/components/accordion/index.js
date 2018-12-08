@@ -27,7 +27,7 @@ export default class AtAccordion extends AtComponent {
       PropTypes.string
     ]),
     open: PropTypes.bool,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     icon: PropTypes.object,
     onClick: PropTypes.func
   }
@@ -133,7 +133,7 @@ export default class AtAccordion extends AtComponent {
               : null
           }
           <View className='at-accordion__title'>
-            {title}
+            {title || this.props.renderTitle}
           </View>
           <AtIcon
             customStyle={animatedStyle}

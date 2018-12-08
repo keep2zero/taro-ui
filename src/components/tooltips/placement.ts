@@ -1,9 +1,9 @@
-
+import * as Taro from '@tarojs/taro'
 interface WayRect {
   width: number;
   height: number;
   top: number;
-  let: number;
+  left: number;
 }
 
 interface WayOffset {
@@ -11,6 +11,7 @@ interface WayOffset {
   offsetY: number
   arrowsOffsetX: number
   arrowsOffsetY: number
+  width: number
 }
 
 export default class Placement {
@@ -30,6 +31,8 @@ export default class Placement {
   arrowsLeft: number;
   arrowsTop: number;
   arrowsRotate: number;
+  winWidth: number;
+  winHeight: number;
 
 
 
@@ -45,7 +48,10 @@ export default class Placement {
     this.arrowsOffsetX = offset.arrowsOffsetX;
     this.arrowsOffsetY = offset.arrowsOffsetY;
     this.arrowsRotate = 0;
+    this.winWidth = Taro.getSystemInfoSync().windowWidth;
+    this.winHeight = Taro.getSystemInfoSync().windowHeight;
 
+    this.width =  offset.width || this.popRect.width;
   }
 
   public exec() { }
@@ -68,7 +74,8 @@ export class RightPlace extends LeftPlace {
     super.exec();
     this.left = this.rect.width + this.arrowsRect.width/2 + this.offsetX;
     this.arrowsLeft = -this.arrowsRect.width;
-    this.arrowsRotate = 270
+    this.arrowsRotate = 270;
+    this.width = this.winWidth - (this.rect.left + this.rect.width + 20)
   }
 }
 
@@ -81,12 +88,16 @@ export class TopPlace extends Placement {
 
   exec() {
     this.top = -this.popRect.height - this.arrowsRect.height/2 - this.offsetY;
-    this.left = -(this.popRect.width - this.rect.width) / 2 + this.offsetX;
-
+    // this.left = -(this.popRect.width - this.rect.width) / 2 + this.offsetX;
+    this.width = this.rect.width + this.rect.left * 2;
+    this.left = -this.rect.left;
     //
     this.arrowsTop = this.popRect.height + this.arrowsOffsetY;
-    this.arrowsLeft = (this.popRect.width - this.arrowsRect.width) / 2 + this.arrowsOffsetX;
+    // this.arrowsLeft = (this.popRect.width - this.arrowsRect.width) / 2 + this.arrowsOffsetX;
+    this.arrowsLeft = (this.width - this.arrowsRect.width) / 2;
     this.arrowsRotate = 180;
+
+
 
   }
 }
@@ -97,6 +108,7 @@ export class LeftTopPlace extends TopPlace {
     super.exec();
     this.left = 0 + this.offsetX;
     this.arrowsLeft = 0 + this.arrowsOffsetX;
+    this.width = this.winWidth - this.rect.left * 2;
   }
 }
 
@@ -113,10 +125,13 @@ export class RightTopPlace extends TopPlace {
 export class BottomPlace extends Placement {
   exec() {
     this.top = this.rect.height + this.offsetY + this.arrowsRect.height / 2 + this.offsetY;
-    this.left = -(this.popRect.width - this.rect.width) / 2 + this.offsetX;
-    this.arrowsLeft = (this.popRect.width - this.arrowsRect.width) / 2 + this.arrowsOffsetX;
+    this.left = -(this.popRect.width - this.rect.width / 2) + this.offsetX;
+    // this.arrowsLeft = (this.popRect.width - this.arrowsRect.width) / 2 + this.arrowsOffsetX;
     this.arrowsTop = 0 - this.arrowsRect.height - this.arrowsOffsetY;
 
+    this.width = this.rect.width + this.rect.left * 2;
+    this.left = -this.rect.left;
+    this.arrowsLeft = (this.width - this.arrowsRect.width) / 2;
   }
 }
 
